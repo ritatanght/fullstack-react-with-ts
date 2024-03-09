@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import uuid from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { findItemIndexById } from "./utils/findItemIndexById";
 import { moveItem } from "./moveItem";
 import { DragItem } from "./DragItem";
@@ -80,7 +80,7 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
         action.payload.taskId
       );
       state.lists[targetLaneIndex].tasks.push({
-        id: uuid.v4(),
+        id: uuidv4(),
         text: action.payload.text,
       });
       return { ...state };
