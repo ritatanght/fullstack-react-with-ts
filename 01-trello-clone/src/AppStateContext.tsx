@@ -1,10 +1,11 @@
 import React, { createContext, useReducer, useContext } from "react";
 import uuid from "uuid";
 import { findItemIndexById } from "./utils/findItemIndexById";
+import { moveItem } from "./moveItem";
 
 interface AppStateContextProps {
   state: AppState;
-  dispatch: React.Dispatch<Action>
+  dispatch: React.Dispatch<Action>;
 }
 
 const AppStateContext = createContext<AppStateContextProps>(
@@ -61,7 +62,8 @@ export const useAppState = () => {
 
 type Action =
   | { type: "ADD_LIST"; payload: string }
-  | { type: "ADD_TASK"; payload: { text: string; taskId: string } };
+  | { type: "ADD_TASK"; payload: { text: string; taskId: string } }
+  | { type: "MOVE_LIST"; payload: { dragIndex: number; hoverIndex: number } };
 
 const appStateReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
@@ -77,6 +79,11 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
         id: uuid.v4(),
         text: action.payload.text,
       });
+      return { ...state };
+    }
+    case "MOVE_LIST": {
+      const { dragIndex, hoverIndex } = action.payload;
+      state.lists = moveItem(state.lists, dragIndex, hoverIndex);
       return { ...state };
     }
     default: {
