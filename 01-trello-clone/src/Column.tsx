@@ -6,10 +6,11 @@ import { useAppState } from "./AppStateContext";
 interface ColumnProps {
   text: string;
   index: number;
+  id: string;
 }
 
-const Column = ({ text, index }: ColumnProps) => {
-  const { state } = useAppState();
+const Column = ({ text, index, id }: ColumnProps) => {
+  const { state, dispatch } = useAppState();
   return (
     <ColumnContainer>
       <ColumnTitle>{text}</ColumnTitle>
@@ -18,7 +19,9 @@ const Column = ({ text, index }: ColumnProps) => {
       ))}
       <AddNewItem
         toggleButtonText="+ Add another task"
-        onAdd={console.log}
+        onAdd={(text) =>
+          dispatch({ type: "ADD_TASK", payload: { taskId: id, text } })
+        }
         dark
       />
     </ColumnContainer>
