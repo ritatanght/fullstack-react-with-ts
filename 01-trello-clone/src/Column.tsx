@@ -8,6 +8,7 @@ import Card from "./Card";
 import { useAppState } from "./AppStateContext";
 import { useItemDrag } from "./useItemDrag";
 import { DragItem } from "./DragItem";
+import { isHidden } from "./utils/isHidden";
 interface ColumnProps {
   text: string;
   index: number;
@@ -38,14 +39,17 @@ const Column = ({ text, index, id }: ColumnProps) => {
   drag(drop(ref));
 
   return (
-    <ColumnContainer ref={ref}>
-      <ColumnTitle>{text}</ColumnTitle>
-      {state.lists[index].tasks.map((task) => (
-        <Card text={task.text} key={task.id} />
-      ))}
+    <ColumnContainer
+      ref={ref}
+      $isHidden={isHidden(state.draggedItem, "COLUMN", id)}
+    >
       <StyleSheetManager
         shouldForwardProp={(dark: string) => isValidProp(dark)}
       >
+        <ColumnTitle>{text}</ColumnTitle>
+        {state.lists[index].tasks.map((task) => (
+          <Card text={task.text} key={task.id} />
+        ))}
         <AddNewItem
           toggleButtonText="+ Add another task"
           onAdd={(text) =>
