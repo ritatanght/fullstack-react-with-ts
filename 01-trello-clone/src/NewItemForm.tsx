@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NewItemFormContainer, NewItemButton, NewItemInput } from "../styles";
+import { NewItemFormContainer, NewItemButton, NewItemInput } from "./styles";
 import useFocus from "./utils/useFocus";
 
 interface NewItemFormProps {

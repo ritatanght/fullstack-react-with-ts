@@ -2,7 +2,7 @@ import isValidProp from "@emotion/is-prop-valid";
 import { StyleSheetManager } from "styled-components";
 import { useDrop } from "react-dnd";
 import { useRef } from "react";
-import { ColumnContainer, ColumnTitle } from "../styles";
+import { ColumnContainer, ColumnTitle } from "./styles";
 import AddNewItem from "./AddNewItem";
 import Card from "./Card";
 import { useAppState } from "./AppStateContext";
@@ -36,7 +36,7 @@ const Column = ({ text, index, id }: ColumnProps) => {
 
   // attach the drag and drop function to COLUMN in the DOM
   drag(drop(ref));
-  
+
   return (
     <ColumnContainer ref={ref}>
       <ColumnTitle>{text}</ColumnTitle>
