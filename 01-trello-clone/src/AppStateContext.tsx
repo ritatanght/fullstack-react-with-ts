@@ -87,8 +87,8 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
     }
     case "MOVE_LIST": {
       const { dragIndex, hoverIndex } = action.payload;
-      state.lists = moveItem(state.lists, dragIndex, hoverIndex);
-      return { ...state };
+      const lists = moveItem(state.lists, dragIndex, hoverIndex);
+      return { ...state, lists };
     }
     case "SET_DRAGGED_ITEM": {
       return { ...state, draggedItem: action.payload };

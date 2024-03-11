@@ -22,7 +22,7 @@ const AddNewItem = (props: AddNewItemProps) => {
       />
     );
   }
-
+  
   return (
     <AddItemButton dark={dark} onClick={() => setShowForm(true)}>
       {toggleButtonText}
