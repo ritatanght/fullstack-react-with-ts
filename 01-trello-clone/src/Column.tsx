@@ -6,7 +6,7 @@ import { ColumnContainer, ColumnTitle } from "./styles";
 import AddNewItem from "./AddNewItem";
 import Card from "./Card";
 import { useAppState } from "./AppStateContext";
-import { useItemDrag } from "./useItemDrag";
+import { useItemDrag } from "./hooks/useItemDrag";
 import { DragItem } from "./DragItem";
 import { isHidden } from "./utils/isHidden";
 interface ColumnProps {
