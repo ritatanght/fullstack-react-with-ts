@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
-import { useAppState } from "./AppStateContext";
-import { DragItem } from "./DragItem";
+import { useAppState } from "../AppStateContext";
+import { DragItem } from "../DragItem";
 
 export const useItemDrag = (item: DragItem) => {
   const { dispatch } = useAppState();
@@ -20,6 +20,6 @@ export const useItemDrag = (item: DragItem) => {
     // The preview function accepts an element or node to use as a drag preview
     preview(getEmptyImage(), { captureDraggingState: true });
   }, [preview]);
-  
+
   return { drag };
 };
