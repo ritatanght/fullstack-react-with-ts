@@ -22,17 +22,30 @@ const Column = ({ text, index, id, isPreview }: ColumnProps) => {
   // pass an obj that will represent the draged item
   const { drag } = useItemDrag({ type: "COLUMN", id, index, text });
   const [, drop] = useDrop({
-    accept: "COLUMN",
+    // accept both CARDs and COLUMNs as drop target
+    accept: ["COLUMN", "CARD"],
     // the hover cb is triggered whenever the dragged item is above the drop target
     hover(item: DragItem) {
       const dragIndex = item.index;
-      const hoverIndex = index;
+      if (item.type === "COLUMN") {
+        const hoverIndex = index;
+        // make sure we aren't hovering above the dragged item
+        if (dragIndex === hoverIndex) return;
+        dispatch({ type: "MOVE_LIST", payload: { dragIndex, hoverIndex } });
+        item.index = hoverIndex;
+      } else {
+        const hoverIndex = 0;
+        const sourceColumn = item.columnId;
+        const targetColumn = id;
+        if (sourceColumn === targetColumn) return;
 
-      // make sure we aren't hovering above the dragged item
-      if (dragIndex === hoverIndex) return;
-
-      dispatch({ type: "MOVE_LIST", payload: { dragIndex, hoverIndex } });
-      item.index = hoverIndex;
+        dispatch({
+          type: "MOVE_TASK",
+          payload: { dragIndex, hoverIndex, sourceColumn, targetColumn },
+        });
+        item.index = hoverIndex;
+        item.columnId = targetColumn;
+      }
     },
   });
 
@@ -49,8 +62,14 @@ const Column = ({ text, index, id, isPreview }: ColumnProps) => {
         shouldForwardProp={(dark: string) => isValidProp(dark)}
       >
         <ColumnTitle>{text}</ColumnTitle>
-        {state.lists[index].tasks.map((task) => (
-          <Card text={task.text} key={task.id} />
+        {state.lists[index].tasks.map((task, idx) => (
+          <Card
+            text={task.text}
+            key={task.id}
+            id={task.id}
+            index={idx}
+            columnId={id}
+          />
         ))}
         <AddNewItem
           toggleButtonText="+ Add another task"
