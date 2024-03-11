@@ -13,9 +13,10 @@ interface ColumnProps {
   text: string;
   index: number;
   id: string;
+  isPreview?: boolean;
 }
 
-const Column = ({ text, index, id }: ColumnProps) => {
+const Column = ({ text, index, id, isPreview }: ColumnProps) => {
   const { state, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
   // pass an obj that will represent the draged item
@@ -41,7 +42,7 @@ const Column = ({ text, index, id }: ColumnProps) => {
   return (
     <ColumnContainer
       ref={ref}
-      $isHidden={isHidden(state.draggedItem, "COLUMN", id)}
+      $isHidden={isHidden(isPreview, state.draggedItem, "COLUMN", id)}
     >
       <StyleSheetManager
         shouldForwardProp={(dark: string) => isValidProp(dark)}

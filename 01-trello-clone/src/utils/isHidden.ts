@@ -4,10 +4,14 @@ import { DragItem } from "../DragItem";
  * By compareing the type and id of the currently dragged item with the type and id we pass to it as args
  */
 export const isHidden = (
-  draggedItem: DragItem |undefined,
+  isPreview: boolean | undefined,
+  draggedItem: DragItem | undefined,
   itemType: string,
   id: string
 ): boolean =>
   Boolean(
-    draggedItem && draggedItem.type === itemType && draggedItem.id === id
+    !isPreview &&
+      draggedItem &&
+      draggedItem.type === itemType &&
+      draggedItem.id === id
   );
