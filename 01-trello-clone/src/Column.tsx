@@ -42,6 +42,7 @@ const Column = ({ text, index, id, isPreview }: ColumnProps) => {
   return (
     <ColumnContainer
       ref={ref}
+      $isPreview={isPreview}
       $isHidden={isHidden(isPreview, state.draggedItem, "COLUMN", id)}
     >
       <StyleSheetManager
