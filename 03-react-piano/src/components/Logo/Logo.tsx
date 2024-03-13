@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from "react";
+import  { FunctionComponent } from "react";
 import "./style.css";
+
 const Logo: FunctionComponent = () => {
   return (
     <h1 className="logo">

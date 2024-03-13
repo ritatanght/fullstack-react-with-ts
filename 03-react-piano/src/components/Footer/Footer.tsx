@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react";
-import "./styles.css";
+import { FunctionComponent } from "react";
+import "./style.css";
 
 const Footer: FunctionComponent = () => {
   const currentYear = new Date().getFullYear();
